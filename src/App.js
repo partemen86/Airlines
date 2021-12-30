@@ -31,7 +31,7 @@ const App = () => {
     </section>
     <div>
       <Table className='routes-table' columns={columns}
-        rows={data.routes} format={formatValue} /> 
+        rows={data.routes} format={formatValue} perPage={49} /> 
     </div>
   </div>
   )

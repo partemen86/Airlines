@@ -7,6 +7,7 @@ import Select from './components/Select';
 
 const App = () => {
   const [airline, setAirline] = useState('all')
+  const [airport, setAirport] = useState('all')
   const columns = [
     {name: 'Airline', property: 'airline'},
     {name: 'Source Airport', property: 'src'},
@@ -22,7 +23,8 @@ const App = () => {
   }
 
   const filteredRoutes = data.routes.filter(route => {  
-    return route.airline === airline || airline === 'all'
+    return (route.airline === airline || airline === 'all') &&
+      (route.src === airport || route.dest === airport || airport === 'all')
   })
 
   const selectAirline = (e) => {
@@ -35,6 +37,11 @@ const App = () => {
     }
   }
 
+  const selectAirport = (e) => {
+    e.preventDefault()
+    setAirport(e.target.value)    
+  }
+
   return (
     <div className='app'>
       <header className='header'>
@@ -43,6 +50,8 @@ const App = () => {
       <section>
         <Select options={data.airlines} valueKey='id' titleKey='name'
           allTitle='All Airlines' value={airline} onSelect={selectAirline} />
+        <Select options={data.airports} valueKey={'code'} titleKey={'name'}
+          allTitle={'All Airports'} value={airport} onSelect={selectAirport} />
       </section>
       <div>
         <Table className='routes-table' columns={columns}

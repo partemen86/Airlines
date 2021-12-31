@@ -42,6 +42,11 @@ const App = () => {
     setAirport(e.target.value)    
   }
 
+  const clearFilters = () => {
+    setAirport('all')
+    setAirline('all')
+  }
+
   return (
     <div className='app'>
       <header className='header'>
@@ -52,6 +57,7 @@ const App = () => {
           allTitle='All Airlines' value={airline} onSelect={selectAirline} />
         <Select options={data.airports} valueKey={'code'} titleKey={'name'}
           allTitle={'All Airports'} value={airport} onSelect={selectAirport} />
+        <button onClick={clearFilters}>Clear Filters</button>
       </section>
       <div>
         <Table className='routes-table' columns={columns}

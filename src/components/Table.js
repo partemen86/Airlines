@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 
-const Table = ({ columns, rows, format, perPage }) => {
+const Table = ({ columns, rows, format, perPage, className }) => {
   const [page, setPage] = useState(0)
   const total = rows.length
   const start = page * perPage
@@ -16,7 +16,7 @@ const Table = ({ columns, rows, format, perPage }) => {
 
   return (
     <div>
-      <table>
+      <table className={className}>
         <thead>
           <tr>
             {columns.map(col => 
@@ -39,7 +39,7 @@ const Table = ({ columns, rows, format, perPage }) => {
         <p>
           <button
             onClick={previousPage}
-            disabled ={start < perPage}
+            disabled={start < perPage}
           >
             Previos Page
           </button>

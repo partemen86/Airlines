@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
 import './App.css';
-import data from './data';
-import { getAirlineById, getAirportByCode } from './data';
+import data, { getAirlineById, getAirportByCode } from './data';
 import Table from './components/Table';
 import Select from './components/Select';
 
@@ -47,15 +46,29 @@ const App = () => {
     setAirline('all')
   }
 
+  const filteredAirlines = data.airlines.map(airline => {
+    const disabled = !filteredRoutes.find(
+      route => route.airline === airline.id
+      )
+    return { ...airline, disabled}
+  })
+
+  const filteredAirports = data.airports.map(airport => {
+    const disabled = !filteredRoutes.find(route =>
+      route.src === airport.code || route.dest === airport.code
+      )
+    return { ...airport, disabled}
+  })
+
   return (
     <div className='app'>
       <header className='header'>
         <h1 className='title'>Airline Routes</h1>
       </header>
       <section>
-        <Select options={data.airlines} valueKey='id' titleKey='name'
+        <Select options={filteredAirlines} valueKey='id' titleKey='name'
           allTitle='All Airlines' value={airline} onSelect={selectAirline} />
-        <Select options={data.airports} valueKey={'code'} titleKey={'name'}
+        <Select options={filteredAirports} valueKey={'code'} titleKey={'name'}
           allTitle={'All Airports'} value={airport} onSelect={selectAirport} />
         <button onClick={clearFilters}>Clear Filters</button>
       </section>

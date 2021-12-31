@@ -8,14 +8,20 @@ const Select = ({
   value,
   onSelect }
 ) => {
-  
+
   return (
     <select value={value} onChange={onSelect}>
       <option key='all' value='all'>{allTitle}</option>
       {options.map(option => {
         const val = option[valueKey]
         const name = option[titleKey]
-        return <option key={val} value={val}>{name}</option>
+        const disabled = option['disabled']
+        return <option
+          key={val} 
+          value={val}
+          disabled={disabled}>
+            {name}
+          </option>
       })}
     </select>
   )
